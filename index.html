@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type='text/javascript' src='./libs/MelodyGen.js'></script>
+  <script crossorigin src = "./libs/learner.v.0.4.js"></script>
+  <script crossorigin src = "./libs/maxiInstruments.v.0.7.1.js"></script>
+  <button
+    style = "margin-top:20px;margin-bottom:20px;height:30px;"
+    onclick = "start()">Kick Off System (User input required)
+  </button>
+  <div style = "width:400px;height:200px;background-color:blue;" id = "input"></div>
+  <div style = "width:400px;" id = "dataset"></div>
+  <div style="display:flex" id = "synths">
+
+  </div>
+</head>
+<body>
+  <script type="text/javascript">
+    // 'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn'
+    // 'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv'
+
+    var synth;
+    const instruments = new MaxiInstruments();
+    instruments.guiElement = document.getElementById("synths");
+
+    const learner = new Learner({docId:"test"})
+    learner.addGUI(document.getElementById("dataset"))
+
+    const recordXY = (event)=> {
+      learner.newExample([event.clientX, event.clientY], instruments.getMappedOutputs());
+    }
+    document.getElementById("input").addEventListener("click", recordXY);
+
+    learner.onOutput = (output)=> {
+      instruments.updateMappedOutputs(output)
+    };
+
+    learner.setModelOptions({
+      numHiddenNodes:8
+    });
+
+    const start = () => {
+      new MelodyGen({checkpoint :  'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv' }).ready.then((MG) => {
+      
+        MG.addGui(14, "synths", 5);
+        instruments.loadModules().then(()=> {
+          synth = instruments.addSynth();
+          synth.mapped = ["lfoFrequency", "lfoAmpMod","attack", "release", "cutoff","pan","lfoFilterMod", "sustain", "decay"];
+          synth.setOsc(2);
+
+          MG.synth = synth;
+          learner.addRegression(instruments.getNumMappedOutputs(), false, 10);
+          learner.onOutput = (data)=> {
+            instruments.updateMappedOutputs(data);
+          };
+        })
+      })
+    }
+
+
+
+  </script>
+</body>
+</html>
