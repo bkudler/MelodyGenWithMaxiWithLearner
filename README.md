@@ -8,21 +8,21 @@ Scroll to the bottom for local development and for trying it out at home.
 
 Press the button to start
 
-![start button](/images/Screen\ Shot\ 2021-12-03\ at\ 10.19.20\ AM.png)
+![start button](images/Screen\ Shot\ 2021-12-03\ at\ 10.19.20\ AM.png)
 
 The System
 
-![the system](/images/Screen\ Shot\ 2021-12-03\ at\ 10.21.34\ AM.png)
+![the system](images/Screen\ Shot\ 2021-12-03\ at\ 10.21.34\ AM.png)
 
 Select A Preset
 
-![twinkle](/images/Screen\ Shot\ 2021-12-03\ at\ 10.21.11\ AM.png)
+![twinkle](images/Screen\ Shot\ 2021-12-03\ at\ 10.21.11\ AM.png)
 
 Scroll Through The Notes Using The Side Arrows If You Want To Alter The Preset Or Enter In Your Own Base Seqeunce
 
 Fill In The Blanks...
 
-![filled in](/images/Screen\ Shot\ 2021-12-03\ at\ 10.22.04\ AM.png)
+![filled in](images/Screen\ Shot\ 2021-12-03\ at\ 10.22.04\ AM.png)
 
 
 # Learner JS
