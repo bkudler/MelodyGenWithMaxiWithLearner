@@ -42,10 +42,10 @@
     const start = () => {
       new MelodyGen({checkpoint :  'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv' }).ready.then((MG) => {
       
-        MG.addGui(14, "synths", 5);
+        MG.addGui(14, "synths", 3);
         instruments.loadModules().then(()=> {
           synth = instruments.addSynth();
-          synth.mapped = ["lfoFrequency", "lfoAmpMod","attack", "release", "cutoff","pan","lfoFilterMod", "sustain", "decay"];
+          synth.mapped = ["lfoFrequency", "lfoAmpMod","attack", "release", "cutoff","lfoFilterMod", "sustain", "decay"];
           synth.setOsc(2);
 
           MG.synth = synth;
