@@ -8,7 +8,7 @@ Scroll to the bottom for local development and for trying it out at home.
 
 Press the button to start
 
-![start button](/images/Screen\ Shot\ 2021-12-03\ at\ 10.19.20\ AM.png)
+![start button](./images/Screen\ Shot\ 2021-12-03\ at\ 10.19.20\ AM.png)
 
 The System
 
