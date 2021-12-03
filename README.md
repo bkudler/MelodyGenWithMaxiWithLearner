@@ -8,7 +8,7 @@ Scroll to the bottom for local development and for trying it out at home.
 
 Press the button to start
 
-![start button](https://raw.githubusercontent.com/bkudler/MelodyGenWithMaxiWithLearner/main/images/Screen%20Shot%202021-12-03%20at%2010.19.20%20AM.png)
+![start button](https://raw.githubusercontent.com/bkudler/MelodyGenWithMaxiWithLearner/main/images/Screen%20Shot%202021-12-03%20at%2010.37.58%20AM.png)
 
 The System
 
