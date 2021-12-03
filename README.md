@@ -12,17 +12,17 @@ Press the button to start
 
 The System
 
-![the system](images/Screen\ Shot\ 2021-12-03\ at\ 10.21.34\ AM.png)
+![the system](https://raw.githubusercontent.com/bkudler/MelodyGenWithMaxiWithLearner/main/images/Screen%20Shot%202021-12-03%20at%2010.21.34%20AM.png)
 
 Select A Preset
 
-![twinkle](images/Screen\ Shot\ 2021-12-03\ at\ 10.21.11\ AM.png)
+![twinkle](https://raw.githubusercontent.com/bkudler/MelodyGenWithMaxiWithLearner/main/images/Screen%20Shot%202021-12-03%20at%2010.21.11%20AM.png)
 
 Scroll Through The Notes Using The Side Arrows If You Want To Alter The Preset Or Enter In Your Own Base Seqeunce
 
 Fill In The Blanks...
 
-![filled in](images/Screen\ Shot\ 2021-12-03\ at\ 10.22.04\ AM.png)
+![filled in](https://github.com/bkudler/MelodyGenWithMaxiWithLearner/blob/main/images/Screen%20Shot%202021-12-03%20at%2010.22.04%20AM.png)
 
 
 # Learner JS
