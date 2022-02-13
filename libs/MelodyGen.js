@@ -22,7 +22,8 @@ class MelodyGen{
 
    presets = [
     {display_name: 'random'},
-    {display_name: 'twinkle twinkle'}
+    {display_name: 'twinkle twinkle'},
+    {display_name: 'coltrane changes in c'}
    ];
 
    presetValues = {
@@ -41,6 +42,36 @@ class MelodyGen{
         {pitch: 62, startTime: 6.0, endTime: 6.5},
         {pitch: 62, startTime: 6.5, endTime: 7.0},
         {pitch: 60, startTime: 7.0, endTime: 8.0}, 
+       ],
+       'coltrane changes in c' : [
+        {pitch: 50, startTime: 0.0, endTime: 0.25},
+        {pitch: 53, startTime: 0.25, endTime: 0.375},
+        {pitch: 57, startTime: 0.375, endTime: 0.5},
+        {pitch: 60, startTime: 0.5, endTime: 0.625},
+        {pitch: 51, startTime: 0.625, endTime: 0.75},
+        {pitch: 55, startTime: 0.75, endTime: 0.875},
+        {pitch: 58, startTime: 0.875, endTime: 1},
+        {pitch: 61, startTime: 1, endTime: 2.0},
+        {pitch: 57, startTime: 2.0, endTime: 2.125},
+        {pitch: 60, startTime: 2.125, endTime: 2.25},
+        {pitch: 63, startTime: 2.25, endTime: 2.375},
+        {pitch: 67, startTime: 2.375, endTime: 2.5},
+        {pitch: 59, startTime: 2.5, endTime: 2.75},
+        {pitch: 63, startTime: 2.75, endTime: 2.875},
+        {pitch: 66, startTime: 2.875, endTime: 3},
+        {pitch: 69, startTime: 3, endTime: 3.125},
+        {pitch: 52, startTime: 3.125, endTime: 3.25},
+        {pitch: 56, startTime: 3.25, endTime: 3.375},
+        {pitch: 59, startTime: 3.375, endTime: 3.5},
+        {pitch: 64, startTime: 3.5, endTime: 3.625},
+        {pitch: 55, startTime: 3.625, endTime: 3.75},
+        {pitch: 59, startTime: 3.75, endTime: 3.875},
+        {pitch: 62, startTime: 3.875, endTime: 4},
+        {pitch: 65, startTime: 4, endTime: 4.125},
+        {pitch: 60, startTime: 4.125, endTime: 5.125},
+        {pitch: 64, startTime: 5.125, endTime: 5.25},
+        {pitch: 67, startTime: 5.25, endTime: 5.5},
+        {pitch: 71, startTime: 5.5, endTime: 5.75},   
        ]
    };
 
@@ -753,6 +784,7 @@ class MelodyGen{
                     useNotes = that.assignVariation(useNotes);
                     that.currSample.notes = useNotes;
                     that.currSample = that.setVelocities(that.currSample);
+                    console.log("HELLLOOO", that.currSample.notes);
                     that.synth.setSequence(that.currSample.notes);
                     that.synth.setLoop(that.getLoopLength(that.currSample.notes));
                     const sequenceTimer = await timer(waitTime);

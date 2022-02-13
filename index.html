@@ -40,9 +40,9 @@
     });
 
     const start = () => {
-      new MelodyGen({checkpoint :  'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv' }).ready.then((MG) => {
+      new MelodyGen({checkpoint :  'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn' }).ready.then((MG) => {
       
-        MG.addGui(14, "synths", 3);
+        MG.addGui(28, "synths");
         instruments.loadModules().then(()=> {
           synth = instruments.addSynth();
           synth.mapped = ["lfoFrequency", "lfoAmpMod","attack", "release", "cutoff","lfoFilterMod", "sustain", "decay"];
