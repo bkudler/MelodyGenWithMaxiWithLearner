@@ -1,7 +1,10 @@
 class MelodyGen{
 
    currentlyPlaying = false;
+   shouldCancel = false;
+   shouldStop = false;
    continue = false;
+   melodies = []
    form = {
     notes : [],
     temp : null,
@@ -23,7 +26,8 @@ class MelodyGen{
    presets = [
     {display_name: 'random'},
     {display_name: 'twinkle twinkle'},
-    {display_name: 'coltrane changes in c'}
+    {display_name: 'coltrane changes in c'},
+    {display_name: 'coltrane changes in g'}
    ];
 
    presetValues = {
@@ -45,34 +49,65 @@ class MelodyGen{
        ],
        'coltrane changes in c' : [
         {pitch: 50, startTime: 0.0, endTime: 0.25},
-        {pitch: 53, startTime: 0.25, endTime: 0.375},
-        {pitch: 57, startTime: 0.375, endTime: 0.5},
-        {pitch: 60, startTime: 0.5, endTime: 0.625},
-        {pitch: 51, startTime: 0.625, endTime: 0.75},
-        {pitch: 55, startTime: 0.75, endTime: 0.875},
-        {pitch: 58, startTime: 0.875, endTime: 1},
-        {pitch: 61, startTime: 1, endTime: 2.0},
-        {pitch: 57, startTime: 2.0, endTime: 2.125},
-        {pitch: 60, startTime: 2.125, endTime: 2.25},
-        {pitch: 63, startTime: 2.25, endTime: 2.375},
-        {pitch: 67, startTime: 2.375, endTime: 2.5},
-        {pitch: 59, startTime: 2.5, endTime: 2.75},
-        {pitch: 63, startTime: 2.75, endTime: 2.875},
-        {pitch: 66, startTime: 2.875, endTime: 3},
-        {pitch: 69, startTime: 3, endTime: 3.125},
-        {pitch: 52, startTime: 3.125, endTime: 3.25},
-        {pitch: 56, startTime: 3.25, endTime: 3.375},
-        {pitch: 59, startTime: 3.375, endTime: 3.5},
-        {pitch: 64, startTime: 3.5, endTime: 3.625},
-        {pitch: 55, startTime: 3.625, endTime: 3.75},
-        {pitch: 59, startTime: 3.75, endTime: 3.875},
-        {pitch: 62, startTime: 3.875, endTime: 4},
-        {pitch: 65, startTime: 4, endTime: 4.125},
-        {pitch: 60, startTime: 4.125, endTime: 5.125},
-        {pitch: 64, startTime: 5.125, endTime: 5.25},
-        {pitch: 67, startTime: 5.25, endTime: 5.5},
-        {pitch: 71, startTime: 5.5, endTime: 5.75},   
+        {pitch: 53, startTime: 0.375, endTime: 0.5},
+        {pitch: 57, startTime: 0.8, endTime: 0.95},
+        {pitch: 60, startTime: 0.95, endTime: 1.025},
+        {pitch: 51, startTime: 1.025, endTime: 1.25},
+        {pitch: 55, startTime: 1.25, endTime: 1.75},
+        {pitch: 58, startTime: 1.75, endTime: 2.25},
+        {pitch: 61, startTime: 3, endTime: 3.35},
+        {pitch: 57, startTime: 3.35, endTime: 3.5},
+        {pitch: 60, startTime: 3.5, endTime: 3.725},
+        {pitch: 63, startTime: 3.725, endTime: 4},
+        {pitch: 67, startTime: 4.25, endTime: 4.5},
+        {pitch: 59, startTime: 4.5, endTime: 5.5},
+        {pitch: 63, startTime: 5.5, endTime: 5.625},
+        {pitch: 66, startTime: 6.0, endTime: 6.725},
+        {pitch: 69, startTime: 6.725, endTime: 7.0},
+        {pitch: 52, startTime: 7.25, endTime: 8.15},
+        {pitch: 56, startTime: 8.5, endTime: 9.0},
+        {pitch: 59, startTime: 9.0, endTime: 9.5},
+        {pitch: 64, startTime: 10.0, endTime: 10.625},
+        {pitch: 55, startTime: 10.325, endTime: 10.75},
+        {pitch: 59, startTime: 10.75, endTime: 11.25},
+        {pitch: 62, startTime: 12.0, endTime: 12.5},
+        {pitch: 65, startTime: 12.5, endTime: 12.75},
+        {pitch: 60, startTime: 12.75, endTime: 13.25},
+        {pitch: 64, startTime: 13.5, endTime: 14.0},
+        {pitch: 67, startTime: 14.05, endTime: 14.85},
+        {pitch: 71, startTime: 15.0, endTime: 15.55},   
+       ],
+       'coltrane changes in g' : [
+        {pitch: 54, startTime: 0.0, endTime: 0.25},
+        {pitch: 57, startTime: 0.25, endTime: 0.75},
+        {pitch: 61, startTime: 1.0, endTime: 1.5},
+        {pitch: 64, startTime: 1.55, endTime: 1.625},
+        {pitch: 55, startTime: 1.65, endTime: 1.75},
+        {pitch: 59, startTime: 1.75, endTime: 2.0},
+        {pitch: 62, startTime: 2.75, endTime: 3.0},
+        {pitch: 65, startTime: 3.5, endTime: 4.0},
+        {pitch: 61, startTime: 4.35, endTime: 4.65},
+        {pitch: 64, startTime: 5.45, endTime: 5.725},
+        {pitch: 67, startTime: 6.0, endTime: 7.5},
+        {pitch: 71, startTime: 8.0, endTime: 8.5},
+        {pitch: 63, startTime: 9.0, endTime: 9.65},
+        {pitch: 67, startTime: 10.0, endTime: 10.25},
+        {pitch: 70, startTime: 10.5, endTime: 11.0},
+        {pitch: 73, startTime: 11.5, endTime: 11.75},
+        {pitch: 56, startTime: 12.0, endTime: 12.5},
+        {pitch: 60, startTime: 12.75, endTime: 13.0},
+        {pitch: 63, startTime: 13.25, endTime: 13.5},
+        {pitch: 68, startTime: 13.5, endTime: 13.85},
+        {pitch: 59, startTime: 13.85, endTime: 14.0},
+        {pitch: 63, startTime: 14.25, endTime: 14.5},
+        {pitch: 66, startTime: 15.0, endTime: 15.25},
+        {pitch: 69, startTime: 15.5, endTime: 15.75},
+        {pitch: 64, startTime: 16.0, endTime: 16.25},
+        {pitch: 68, startTime: 16.5, endTime: 17.0},
+        {pitch: 71, startTime: 17.25, endTime: 17.5},
+        {pitch: 74, startTime: 18.0, endTime: 18.5},   
        ]
+
    };
 
    chordNoteOpts = [
@@ -136,7 +171,7 @@ class MelodyGen{
         let link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = origin + '/libs/MelodyGen.css';
+        link.href = origin + '/libs/MelodyGenStyle.css';
         head.appendChild(link);
 
 
@@ -230,7 +265,7 @@ class MelodyGen{
         cell.appendChild(presetInput);
 
         this.presetBtn = document.createElement("BUTTON");
-        this.presetBtn.onclick = () => {
+        this.presetBtn.onclick = (event) => {
             this.clickPreset();
         }
 
@@ -454,6 +489,51 @@ class MelodyGen{
         this.innerModWrapper.appendChild(cell);
 
         label = document.createElement('div');
+        label.innerHTML = `Head Variation`;
+        cell.appendChild(label);
+
+        slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = 0;
+        slider.max = 100;
+        slider.value = 0;
+        slider.step = 5;
+
+        slider.oninput = (event) => {
+            this.head_variation = +event.target.value;
+        }
+        slider.classList.add('inner-mod-wrapper-input-slider');
+        cell.appendChild(slider);
+
+        // //////////////////////////////////////////////////////////
+
+        cell = document.createElement('div');
+        this.innerModWrapper.appendChild(cell);
+
+        label = document.createElement('div');
+        label.innerHTML = `Tail Variation`;
+        cell.appendChild(label);
+
+        slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = 0;
+        slider.max = 100;
+        slider.value = 0;
+        slider.step = 5;
+
+        slider.oninput = (event) => {
+            this.tail_variation = +event.target.value;
+        }
+
+        slider.classList.add('inner-mod-wrapper-input-slider');
+        cell.appendChild(slider);
+
+        // //////////////////////////////////////////////////////////
+
+        cell = document.createElement('div');
+        this.innerModWrapper.appendChild(cell);
+
+        label = document.createElement('div');
         label.innerHTML = `Wait Time`;
         cell.appendChild(label);
 
@@ -473,7 +553,7 @@ class MelodyGen{
 
 
         this.genBtn = document.createElement("BUTTON");
-        this.genBtn.onclick = () => {
+        this.genBtn.onclick = (event) => {
             this.setNewBaseSeq();
         }
 
@@ -483,12 +563,36 @@ class MelodyGen{
         this.selectorContainer.classList.add('set-button');
 
         this.startBtn = document.createElement("BUTTON");
-        this.startBtn.onclick = () => {
+        this.startBtn.onclick = (event) => {
             this.startSequence();
         }
 
         this.startBtn.innerHTML = "Generate";
         this.selectorContainer.appendChild(this.startBtn);
+
+        this.cancelBtn = document.createElement("BUTTON");
+        this.cancelBtn.onclick = (event) => {
+            this.cancelSequence();
+        }
+
+        this.cancelBtn.innerHTML = "Cancel";
+        this.selectorContainer.appendChild(this.cancelBtn);
+
+        this.stopBtn = document.createElement("BUTTON");
+        this.stopBtn.onclick = (event) => {
+            this.stopSequence();
+        }
+
+        this.stopBtn.innerHTML = "Stop";
+        this.selectorContainer.appendChild(this.stopBtn);
+
+        this.downloadBtn = document.createElement("BUTTON");
+        this.downloadBtn.onclick = (event) => {
+            this.downloadNotes();
+        }
+
+        this.downloadBtn.innerHTML = "Download";
+        this.selectorContainer.appendChild(this.downloadBtn);
 
         if(this.checkpoint === 'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv'){
             this.chordContainer = document.createElement('div');
@@ -601,8 +705,9 @@ class MelodyGen{
         let newIndex;
         let currentIndex = beg.length;
     
+        const begin_variation = Number.isNaN((+(this.head_variation/100).toFixed(2))) ? 0 : (+(this.head_variation/100).toFixed(2));
         for(let i = 0; i < beg.length; i++){
-            if(this.weightedFlip(variation + 0.1)){
+            if(this.weightedFlip(begin_variation)){
                 temp = beg[i];
                 tempStart = beg[i].quantizedStartStep;
                 tempEnd = beg[i].quantizedEndStep;
@@ -620,10 +725,11 @@ class MelodyGen{
             }
         }
 
+        const end_variation = Number.isNaN((+(this.tail_variation/100).toFixed(2))) ? 0 : (+(this.tail_variation/100).toFixed(2));
         let end = notes.slice(notes.length - begAndEndAmount, notes.length);
         currentIndex = end.length;
         for(let i = 0; i < end.length; i++){
-            if(this.weightedFlip(variation + 0.1)){
+            if(this.weightedFlip(end_variation)){
                 temp = end[i];
                 tempStart = end[i].quantizedStartStep;
                 tempEnd = end[i].quantizedEndStep;
@@ -714,6 +820,27 @@ class MelodyGen{
         } 
     }
 
+    cancelSequence(){
+        this.shouldCancel = true;
+        this.currentlyPlaying = false;
+    }
+
+    stopSequence(){
+        this.shouldStop = true;
+    }
+
+    downloadNotes(){
+        const link = document.createElement("a");
+        const melodies = this.melodies.map((melody) => {
+            return melody.toJSON()
+        });
+        const file = new Blob([JSON.stringify(melodies)], { type: 'text/plain' });
+        link.href = URL.createObjectURL(file);
+        link.download = "melodies.txt";
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+
     randomBaseSeq(){
         let pitchInput;
         let lengthStartInput;
@@ -757,7 +884,9 @@ class MelodyGen{
     generateNewSequences(){
         const qns = mm.sequences.quantizeNoteSequence(this.notes, this.steps_per_quarter);
         this.currentlyPlaying = true;
+        this.shouldStop = false;
         this.continue = false;
+        this.shouldCancel = false;
         const useChords = this.checkpoint === 'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv' ? this.chords : null; 
         this.magenta_rnn.continueSequence(qns, this.steps, this.temp, useChords)
         .then((sample) => {
@@ -781,11 +910,18 @@ class MelodyGen{
                     } else {
                         useNotes = that.lengthNotes;
                     }
+                    if(that.shouldStop){
+                        console.log("STOP")
+                        useNotes = [{pitch: 0}]
+                    }
                     useNotes = that.assignVariation(useNotes);
                     that.currSample.notes = useNotes;
                     that.currSample = that.setVelocities(that.currSample);
                     console.log("HELLLOOO", that.currSample.notes);
                     that.synth.setSequence(that.currSample.notes);
+                    if(!that.shouldStop){
+                        that.melodies = [...that.melodies, ...that.currSample.notes]
+                    }
                     that.synth.setLoop(that.getLoopLength(that.currSample.notes));
                     const sequenceTimer = await timer(waitTime);
                     clearTimeout(sequenceTimer);
@@ -796,6 +932,9 @@ class MelodyGen{
                     )
                     const betweenSequenceTimer = await timer(that.betweenSequenceWait*1000);
                     clearTimeout(betweenSequenceTimer);
+                    if(that.shouldCancel){
+                        break;
+                    }
                 }
                 that.currentlyPlaying = false;
                 if(that.continue){
