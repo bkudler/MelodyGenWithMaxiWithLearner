@@ -76,6 +76,8 @@ You can [follow the guide](https://mimicproject.com/guides/maxi-instrument) on t
 
 Or you can [look at the API documentation](https://www.doc.gold.ac.uk/~lmcca002/MaxiInstrument.html).
 
+#### Check The Demo Video (Included In The Top Level Of This Project) For More!
+
 ## Running Locally
 
 To run on your local machine you will first need to serve some files. The recommended way to do this is to use the python server we have provided (server.py). This is because we have to set some headers when serving the files to use SharedArrayBuffers, and this is what makes MaxiInstruments run smooooooth.
