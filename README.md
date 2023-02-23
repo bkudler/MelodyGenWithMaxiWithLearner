@@ -1,10 +1,12 @@
 # MelodyGen 
 
+## In Short
+
 MelodyGen bootstraps LearnerJS and MaxiInstrument from the MIMIC research project (more information below) and [Google's Magenta](https://magenta.tensorflow.org/). This project is directly built off of MIMIC platform developer, Louis Busby's, [project](https://github.com/Louismac/learnerjs). [The Melody Generator](https://github.com/bkudler/MelodyGen) uses Magenta's machine learning technology to generate sequences of notes based off of user input (presets are provided) that are then played by MaxiInstrument.
 
 Scroll to the bottom for local development and for trying it out at home. 
 
-# In The Demo
+## Usage
 
 Press the button to start
 
@@ -23,16 +25,16 @@ Scroll Through The Notes Using The Side Arrows If You Want To Alter The Preset O
   ![filled in](https://user-images.githubusercontent.com/16430294/213082431-f54d0e14-1a10-4c36-a3be-73187341bea1.png)
 
 * Temperature tells Google's Magenta how far from the original sequence it can diverge, values between 1 and 2 are best.
-* Step amount is how long the sequence is
-* Seq repeats is how many times to loop the sequences magenta returns
+* Step amount is how long the sequence is.
+* Seq repeats is how many times to loop the sequences magenta returns.
 * Steps per qn is steps per quarter note, how many quarter notes should one step be, higher values, usually means faster, good values are 4 or 8.
 
   ![filled in](https://user-images.githubusercontent.com/16430294/213082431-f54d0e14-1a10-4c36-a3be-73187341bea1.png)
 
-Once A Sequence Is Created From Magenta MaxiSynth Will Begin Playing The Sequence, Looped The Amount of Times Entered In The Seq Repeats Box. The Music Can Then Be Altered In Real Time.
+Once A Sequence Is Created From Magenta, MaxiSynth Will Begin Playing The Sequence Looped The Amount of Times Entered In The Seq Repeats Box. The Music Can Then Be Altered In Real Time.
 
 * Length controls the length of the sequence. The further to the left the slider is the less notes are played. Notes are removed semi-randomly.
-* Variation will change the order of the notes. The slider entirely to the left will mean no variation, the slider all the way to the right creates the maximum amount of variation. In order to keep the melody sound familiar, this only varies the middle 90 percent of notes.
+* Variation will change the order of the notes. The slider entirely to the left will mean no variation, the slider all the way to the right creates the maximum amount of variation. In order to keep the melody sounding familiar, this only varies the middle 90 percent of notes.
 * The user can also vary the first five percent of notes to get really crazy. This slider works the same as the variation slider, except on the aforementioned note set.
 * The user can also vary the last five percent of notes. This slider works the same as the variation slider, except on the aforementioned note set.
 
@@ -46,7 +48,9 @@ The Control Panel At The Bottom Allows Manipulations Of The Sequence of Melodies
 
 ![control panel](https://user-images.githubusercontent.com/16430294/213083196-69e78a39-1f80-4b95-b3eb-7d4821778b5f.png)
 
-# Learner JS
+## The MIMIC Instruments Used For Demonstration Purposes
+
+### Learner JS
 
 Home of Learner.js and MaxiInstruments.js
 
@@ -66,7 +70,7 @@ Or you can [look at the API documentation](https://www.doc.gold.ac.uk/~lmcca002/
 
 ### Check The Demo Video (Included In The Top Level Of This Project) For More!
 
-## MaxiInstruments.js
+### MaxiInstruments.js
 
 For a number of reasons, currently, MaxiInstruments will **performs best in Chrome**!. It does work in Firefox, although if you are pushing limits computationally, you can get some artifacts.
 
