@@ -14,22 +14,29 @@ Press the button to start
 
 The System
 
-  ![the system](https://user-images.githubusercontent.com/16430294/213081835-a8c8987e-1cad-4aa8-94ea-c0f23f96a5e3.png)
+  ![the system](https://user-images.githubusercontent.com/16430294/232857697-b4f8603d-087f-4193-a11b-d4a9a4dc1c8f.png)
 
-Select A Preset
 
-  ![twinkle](https://user-images.githubusercontent.com/16430294/213082258-9ec59409-f4da-455b-87fb-d407fab7c24a.png)
+Select A Melody To Start With
 
-Scroll Through The Notes Using The Side Arrows If You Want To Alter The Preset Or Enter In Your Own Base Sequence
+  ![twinkle](https://user-images.githubusercontent.com/16430294/232858052-536e309f-7e50-46b4-9844-50d9373dde8f.png)
 
-  ![filled in](https://user-images.githubusercontent.com/16430294/213082431-f54d0e14-1a10-4c36-a3be-73187341bea1.png)
+Or Upload A New One
 
-* Temperature tells Google's Magenta how far from the original sequence it can diverge, values between 1 and 2 are best.
-* Step amount is how long the sequence is.
+  ![upload](https://user-images.githubusercontent.com/16430294/232859285-a0bf8eac-bf29-4ab0-8355-7567dcf8164d.png)
+  
+  The upload button will open a prompt to select a file. Once a proper `.midi` file is selected the user will see the file in the dropdown of melodies.
+  
+Select a piece of the uploaded MIDI file to work with
+
+  ![edit](https://user-images.githubusercontent.com/16430294/232860375-bfd30267-9a94-4985-b061-cde2d6a08265.png)
+  
+  Each slider moves one percent at a time. It will start the percentage the start slider is on into the MIDI file and end the percentage into the MIDI file the end slider is at.
+
+* Temperature tells Google's Magenta how far from the original sequence it can diverge, values between 1 and 2 are best. 2 Is very extreme, 1.5 is even pretty extreme. The influence of the original melody is always heard though.
+* Step amount is how many quantized steps to make the sequence is. 
 * Seq repeats is how many times to loop the sequences magenta returns.
-* Steps per qn is steps per quarter note, how many quarter notes should one step be, higher values, usually means faster, good values are 4 or 8.
-
-  ![filled in](https://user-images.githubusercontent.com/16430294/213082431-f54d0e14-1a10-4c36-a3be-73187341bea1.png)
+* Steps per qn is steps per quarter note, how many quarter notes one step should be. Higher values, usually means slows, good values are evenly divisible by four.
 
 Once A Sequence Is Created From Magenta, MaxiSynth Will Begin Playing The Sequence Looped The Amount of Times Entered In The Seq Repeats Box. The Music Can Then Be Altered In Real Time.
 
@@ -38,15 +45,16 @@ Once A Sequence Is Created From Magenta, MaxiSynth Will Begin Playing The Sequen
 * The user can also vary the first five percent of notes to get really crazy. This slider works the same as the variation slider, except on the aforementioned note set.
 * The user can also vary the last five percent of notes. This slider works the same as the variation slider, except on the aforementioned note set.
 
-  ![modulation](https://user-images.githubusercontent.com/16430294/213518173-3957d75e-07cd-490c-9b90-6e3a07bd7cbe.png)
+  ![modulation](https://user-images.githubusercontent.com/16430294/232859532-49d15dcb-dc94-4260-8389-5cd15d5deb6f.png)
 
 The Control Panel At The Bottom Allows Manipulations Of The Sequence of Melodies. 
+* Test will play back the selected segment of the selected melody as is once, so the user can see if it is to the user's liking. It cannot be modulated.
+* Play Clean plays the selected segment of the selected melody as is, not a Magenta generated sequence, looped and it can be modualted.
 * Generate uses Magenta to generate a new sequence of notes
-* Cancel will stop the looping of the sequence and allow the user to generate a new sequence
-* Stop will stop looping and stop all sound, everything is over!
-* Download, will download a text file with the current composition you have created, in case you ever want to use it again!
+* Cancel will stop the looping of the sequence and allow the user to generate a new sequence, test or play clean.
+* Download, will download a text file with the current composition you have created, in case you ever want to use it again
 
-![control panel](https://user-images.githubusercontent.com/16430294/213083196-69e78a39-1f80-4b95-b3eb-7d4821778b5f.png)
+  ![control panel](https://user-images.githubusercontent.com/16430294/232860103-a22f0106-8361-42ef-b797-dce48525e0a7.png)
 
 ## The MIMIC Instruments Used For Demonstration Purposes
 
