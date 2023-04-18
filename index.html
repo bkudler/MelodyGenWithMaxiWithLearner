@@ -42,7 +42,7 @@
     const start = () => {
       new MelodyGen({checkpoint :  'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn' }).ready.then((MG) => {
       
-        MG.addGui(28, "synths");
+        MG.addGui("synths");
         instruments.loadModules().then(()=> {
           synth = instruments.addSynth();
           synth.mapped = ["lfoFrequency", "lfoAmpMod","attack", "release", "cutoff","lfoFilterMod", "sustain", "decay"];
