@@ -2,7 +2,7 @@
 
 ## In Short
 
-MelodyGen bootstraps LearnerJS and MaxiInstrument from the MIMIC research project (more information below) and [Google's Magenta](https://magenta.tensorflow.org/). This project is directly built off of MIMIC platform developer, Louis Busby's, [project](https://github.com/Louismac/learnerjs). [The Melody Generator](https://github.com/bkudler/MelodyGen) uses Magenta's machine learning technology to generate sequences of notes based off of user input (presets are provided) that are then played by MaxiInstrument.
+MelodyGen bootstraps LearnerJS and MaxiInstrument from the MIMIC research project (more information below) and [Google's Magenta](https://magenta.tensorflow.org/). This project is directly built off of MIMIC platform developer Louis Busby's [project](https://github.com/Louismac/learnerjs). [The Melody Generator](https://github.com/bkudler/MelodyGen) uses Magenta's machine learning technology to generate sequences of notes based off of user input (presets are provided) that are then played by MaxiInstrument.
 
 Scroll to the bottom for local development and for trying it out at home. 
 
