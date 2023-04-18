@@ -1,10 +1,13 @@
 class MelodyGen{
 
-   currentlyPlaying = false;
    shouldCancel = false;
-   shouldStop = false;
    continue = false;
-   melodies = []
+   block = false;
+   start = 0;
+   end = 100;
+   actions = [];
+   melodies = [];
+   uploadedFiles = {};
    form = {
     notes : [],
     temp : null,
@@ -24,91 +27,11 @@ class MelodyGen{
    };
 
    presets = [
-    {display_name: 'random'},
-    {display_name: 'twinkle twinkle'},
-    {display_name: 'coltrane changes in c'},
-    {display_name: 'coltrane changes in g'}
+    {display_name: 'Twinkle Twinkle'},
+    {display_name: 'Satisfaction'},
+    {display_name: 'Giant Steps'}
    ];
 
-   presetValues = {
-       'twinkle twinkle' : [
-        {pitch: 60, startTime: 0.0, endTime: 0.5},
-        {pitch: 60, startTime: 0.5, endTime: 1.0},
-        {pitch: 67, startTime: 1.0, endTime: 1.5},
-        {pitch: 67, startTime: 1.5, endTime: 2.0},
-        {pitch: 69, startTime: 2.0, endTime: 2.5},
-        {pitch: 69, startTime: 2.5, endTime: 3.0},
-        {pitch: 67, startTime: 3.0, endTime: 4.0},
-        {pitch: 65, startTime: 4.0, endTime: 4.5},
-        {pitch: 65, startTime: 4.5, endTime: 5.0},
-        {pitch: 64, startTime: 5.0, endTime: 5.5},
-        {pitch: 64, startTime: 5.5, endTime: 6.0},
-        {pitch: 62, startTime: 6.0, endTime: 6.5},
-        {pitch: 62, startTime: 6.5, endTime: 7.0},
-        {pitch: 60, startTime: 7.0, endTime: 8.0}, 
-       ],
-       'coltrane changes in c' : [
-        {pitch: 50, startTime: 0.0, endTime: 0.25},
-        {pitch: 53, startTime: 0.375, endTime: 0.5},
-        {pitch: 57, startTime: 0.8, endTime: 0.95},
-        {pitch: 60, startTime: 0.95, endTime: 1.025},
-        {pitch: 51, startTime: 1.025, endTime: 1.25},
-        {pitch: 55, startTime: 1.25, endTime: 1.75},
-        {pitch: 58, startTime: 1.75, endTime: 2.25},
-        {pitch: 61, startTime: 3, endTime: 3.35},
-        {pitch: 57, startTime: 3.35, endTime: 3.5},
-        {pitch: 60, startTime: 3.5, endTime: 3.725},
-        {pitch: 63, startTime: 3.725, endTime: 4},
-        {pitch: 67, startTime: 4.25, endTime: 4.5},
-        {pitch: 59, startTime: 4.5, endTime: 5.5},
-        {pitch: 63, startTime: 5.5, endTime: 5.625},
-        {pitch: 66, startTime: 6.0, endTime: 6.725},
-        {pitch: 69, startTime: 6.725, endTime: 7.0},
-        {pitch: 52, startTime: 7.25, endTime: 8.15},
-        {pitch: 56, startTime: 8.5, endTime: 9.0},
-        {pitch: 59, startTime: 9.0, endTime: 9.5},
-        {pitch: 64, startTime: 10.0, endTime: 10.625},
-        {pitch: 55, startTime: 10.325, endTime: 10.75},
-        {pitch: 59, startTime: 10.75, endTime: 11.25},
-        {pitch: 62, startTime: 12.0, endTime: 12.5},
-        {pitch: 65, startTime: 12.5, endTime: 12.75},
-        {pitch: 60, startTime: 12.75, endTime: 13.25},
-        {pitch: 64, startTime: 13.5, endTime: 14.0},
-        {pitch: 67, startTime: 14.05, endTime: 14.85},
-        {pitch: 71, startTime: 15.0, endTime: 15.55},   
-       ],
-       'coltrane changes in g' : [
-        {pitch: 54, startTime: 0.0, endTime: 0.25},
-        {pitch: 57, startTime: 0.25, endTime: 0.75},
-        {pitch: 61, startTime: 1.0, endTime: 1.5},
-        {pitch: 64, startTime: 1.55, endTime: 1.625},
-        {pitch: 55, startTime: 1.65, endTime: 1.75},
-        {pitch: 59, startTime: 1.75, endTime: 2.0},
-        {pitch: 62, startTime: 2.75, endTime: 3.0},
-        {pitch: 65, startTime: 3.5, endTime: 4.0},
-        {pitch: 61, startTime: 4.35, endTime: 4.65},
-        {pitch: 64, startTime: 5.45, endTime: 5.725},
-        {pitch: 67, startTime: 6.0, endTime: 7.5},
-        {pitch: 71, startTime: 8.0, endTime: 8.5},
-        {pitch: 63, startTime: 9.0, endTime: 9.65},
-        {pitch: 67, startTime: 10.0, endTime: 10.25},
-        {pitch: 70, startTime: 10.5, endTime: 11.0},
-        {pitch: 73, startTime: 11.5, endTime: 11.75},
-        {pitch: 56, startTime: 12.0, endTime: 12.5},
-        {pitch: 60, startTime: 12.75, endTime: 13.0},
-        {pitch: 63, startTime: 13.25, endTime: 13.5},
-        {pitch: 68, startTime: 13.5, endTime: 13.85},
-        {pitch: 59, startTime: 13.85, endTime: 14.0},
-        {pitch: 63, startTime: 14.25, endTime: 14.5},
-        {pitch: 66, startTime: 15.0, endTime: 15.25},
-        {pitch: 69, startTime: 15.5, endTime: 15.75},
-        {pitch: 64, startTime: 16.0, endTime: 16.25},
-        {pitch: 68, startTime: 16.5, endTime: 17.0},
-        {pitch: 71, startTime: 17.25, endTime: 17.5},
-        {pitch: 74, startTime: 18.0, endTime: 18.5},   
-       ]
-
-   };
 
    chordNoteOpts = [
        "Ab",
@@ -195,7 +118,7 @@ class MelodyGen{
         })
     }
 
-    addGui(inputAmount, id, chordAmount = 0){
+    addGui(id, chordAmount = 0){
         let parent = document.body;
         if(id){
             parent = document.getElementById(id);
@@ -204,18 +127,7 @@ class MelodyGen{
         this.mainContainer.id = "melody-gen-container";
         parent.appendChild(this.mainContainer);
         let cell;
-        this.inputAmount = inputAmount;
-        for(let i = 0; i < inputAmount; i++){
-            this.form.notes.push({
-                pitch: 0,
-                startTime: 0.0,
-                endTime : 0.0
-            });
-        }
 
-        let pitchInput;
-        let lengthStartInput;
-        let lengthEndInput;
         let label;
         this.noteContainer = document.createElement('div');
         this.noteContainer.classList.add('note-container');
@@ -228,15 +140,16 @@ class MelodyGen{
 
 
         label = document.createElement('div');
-        label.innerHTML = `Presets`;
+        label.innerHTML = `Melodies`;
         noteTable.appendChild(label);
 
         const presetInput = document.createElement('select');
-        presetInput.name = "Presets";
+        this.presetInput = presetInput;
+        presetInput.name = "Melodies";
         let option;
         option = document.createElement("option");
         option.setAttribute("value", "none");
-        option.text = "Presets";
+        option.text = "Melodies";
         option.disabled = true;
         option.selected = true;
         option.hidden = true;
@@ -252,11 +165,7 @@ class MelodyGen{
 
         presetInput.onchange = (event) => {
             this.currPreset = event.target.value;
-            if(event.target.value === "random"){
-                this.randomBaseSeq();
-            } else {
-                this.setPreset();
-            }
+            this.setPreset(false);
         }
 
         cell = document.createElement("div");
@@ -265,120 +174,85 @@ class MelodyGen{
         cell.appendChild(presetInput);
 
         this.presetBtn = document.createElement("BUTTON");
-        this.presetBtn.onclick = (event) => {
-            this.clickPreset();
+        this.presetBtn.onclick = () => {
+            this.setPreset("test");
         }
 
-        this.presetBtn.innerHTML = "Set Preset";
+        this.presetBtn.innerHTML = "Test";
         
-        cell = document.createElement("div");
-
-        noteTable.appendChild(cell);
         cell.appendChild(this.presetBtn);
-        const noteSelectHolder = document.createElement('div');
-        noteSelectHolder.classList.add('note-select-holder');
-        noteTable.append(noteSelectHolder);
-        this.mainLabel = document.createElement('div'); 
-        this.mainLabel.classList.add('label-wrapper');
 
-        let leftBtn = document.createElement('span');
-        leftBtn.classList.add('side-btn'); 
-        leftBtn.classList.add('side-btn-left'); 
+        /////
 
-        leftBtn.innerHTML = '<';
-        leftBtn.onclick = (event) => {
-            this.prev(event);
+        this.uploadBtn = document.createElement("BUTTON");
+        this.uploadBtn.onclick = () => {
+            this.uploadInput.click();
         }
-        this.mainLabel.appendChild(leftBtn);
 
-        let labelSpan = document.createElement('span');
-        this.labelSpan = labelSpan;
-        labelSpan.innerHTML = `Note 1`;
-        this.mainLabel.appendChild(labelSpan);     
+        this.uploadBtn.innerHTML = "Upload";
+        
+        cell.appendChild(this.uploadBtn);
+        
 
-        let rightBtn = document.createElement('span');
-        rightBtn.classList.add('side-btn'); 
-        rightBtn.classList.add('side-btn-right'); 
-        rightBtn.innerHTML = '>';
-        rightBtn.onclick = (event) => {
-            this.next(event);
-        }
-        this.mainLabel.appendChild(rightBtn);
+        ////
+        this.uploadInput = document.createElement('input');
+        this.uploadInput.type = 'file';
+        this.uploadInput.style.visibility = 'hidden';
+        this.uploadInput.style.width = '1%';
+        this.uploadInput.style.height = '1%';
+        this.uploadInput.onchange = () => {
+            this.uploadMidi();
+        }; 
+        
+        cell.appendChild(this.uploadInput);
+        
 
-        let labelCell = document.createElement('div');
-        labelCell.classList.add('label-cell');
-        let inputCell = document.createElement('div');
-        inputCell.classList.add('input-cell');
-        noteSelectHolder.appendChild(this.mainLabel);
-        noteSelectHolder.appendChild(labelCell);
-        noteSelectHolder.appendChild(inputCell);
+        ///
 
-        label = document.createElement('span');
-        label.innerHTML = `Pitch`;
-        labelCell.appendChild(label);
+        cell = document.createElement('div');
+        noteTable.appendChild(cell);
 
-        label = document.createElement('span');
+        label = document.createElement('div');
         label.innerHTML = `Start`;
-        labelCell.appendChild(label);
+        cell.appendChild(label);
 
-        label = document.createElement('span');
-        label.innerHTML = `End`;
-        labelCell.appendChild(label);
+        let start_slider = document.createElement('input');
+        start_slider.type = 'range';
+        start_slider.min = 0;
+        start_slider.max = 100;
+        start_slider.value = 0;
+        start_slider.step = 1;
 
-        this.pitchPage = 0;
-
-        for(let i = 0; i < inputAmount; i++){
-
-            pitchInput = document.createElement('input');
-            pitchInput.id = `pitch-input-${i}`
-            pitchInput.type = "text";
-
-            pitchInput.oninput = (event) => {
-                let pitch = +event.target.value
-                this.form.notes[i] = {...this.form.notes[i], pitch};
-            }
-
-            cell = document.createElement('span');
-            cell.appendChild(pitchInput);
-            cell.id = `pitch-span-${i}`;
-            inputCell.appendChild(cell);
-
-            lengthStartInput = document.createElement('input');
-            lengthStartInput.id = `length-start-input-${i}`;
-            lengthStartInput.type = "text";
-
-            lengthStartInput.oninput = (event) => {
-                let startTime = +event.target.value;
-                this.form.notes[i] = {...this.form.notes[i], startTime};
-            }
-
-            cell = document.createElement('span');
-            cell.appendChild(lengthStartInput);
-            cell.id = `start-span-${i}`;
-            inputCell.appendChild(cell);
-
-
-            lengthEndInput = document.createElement('input');
-            lengthEndInput.id = `length-end-input-${i}`;
-            lengthEndInput.type = "text";
-
-            lengthEndInput.oninput = (event) => {
-                let endTime = +event.target.value
-                this.form.notes[i] = {...this.form.notes[i], endTime};
-            }
-
-            cell = document.createElement('span');
-            cell.appendChild(lengthEndInput);
-            cell.id = `end-span-${i}`;
-            inputCell.appendChild(cell);
-
+        start_slider.oninput = (event) => {
+            this.start = +event.target.value;
         }
 
-        this.hideElements();
-        document.getElementById(`pitch-span-0`).style.display = "";
-        document.getElementById(`start-span-0`).style.display = "";
-        document.getElementById(`end-span-0`).style.display = "";
+        start_slider.classList.add('midi-start-input-slider');
+        cell.appendChild(start_slider);
 
+        cell = document.createElement('div');
+        noteTable.appendChild(cell);
+
+        label = document.createElement('div');
+        label.innerHTML = `End`;
+        cell.appendChild(label);
+
+        let end_slider = document.createElement('input');
+        end_slider.type = 'range';
+        end_slider.min = 0;
+        end_slider.max = 100;
+        end_slider.value = 100;
+        end_slider.step = 1;
+
+        end_slider.oninput = (event) => {
+            this.end = +event.target.value;
+        }
+
+        start_slider.classList.add('midi-end-input-slider');
+        cell.appendChild(end_slider);
+
+        //
+        
         const seqSetTable = document.createElement('div');
         this.seqSetTable = seqSetTable;
         this.noteContainer.appendChild(seqSetTable);
@@ -551,16 +425,15 @@ class MelodyGen{
         this.selectorContainer.classList.add('button-wrapper');
         this.mainContainer.appendChild(this.selectorContainer);
 
-
-        this.genBtn = document.createElement("BUTTON");
-        this.genBtn.onclick = (event) => {
-            this.setNewBaseSeq();
+        this.cleanBtn = document.createElement("BUTTON");
+        this.cleanBtn.onclick = (event) => {
+            this.setPreset("playClean");
         }
 
-        this.genBtn.innerHTML = "Set Base";
-        cell.appendChild(this.genBtn);
-        this.selectorContainer.appendChild(this.genBtn);
-        this.selectorContainer.classList.add('set-button');
+        this.cleanBtn.innerHTML = "Play Clean";
+        cell.appendChild(this.cleanBtn);
+        this.selectorContainer.appendChild(this.cleanBtn);
+        this.selectorContainer.classList.add('clean-button');
 
         this.startBtn = document.createElement("BUTTON");
         this.startBtn.onclick = (event) => {
@@ -577,14 +450,6 @@ class MelodyGen{
 
         this.cancelBtn.innerHTML = "Cancel";
         this.selectorContainer.appendChild(this.cancelBtn);
-
-        this.stopBtn = document.createElement("BUTTON");
-        this.stopBtn.onclick = (event) => {
-            this.stopSequence();
-        }
-
-        this.stopBtn.innerHTML = "Stop";
-        this.selectorContainer.appendChild(this.stopBtn);
 
         this.downloadBtn = document.createElement("BUTTON");
         this.downloadBtn.onclick = (event) => {
@@ -638,51 +503,6 @@ class MelodyGen{
     
     }
 
-    next(event){
-        this.hideElements();
-        if(this.pitchPage === (this.inputAmount - 1)){
-            this.pitchPage = 0;   
-        } else {
-            this.pitchPage = this.pitchPage + 1;
-        }
-        this.labelSpan.innerHTML = `Note ${this.pitchPage + 1}`;
-        document.getElementById(`pitch-span-${this.pitchPage}`).style.display = "";
-        document.getElementById(`start-span-${this.pitchPage}`).style.display = "";
-        document.getElementById(`end-span-${this.pitchPage}`).style.display = "";
-
-    }
-
-
-    prev(event){
-        this.hideElements();
-        if(this.pitchPage === 0){
-            this.pitchPage = (this.inputAmount - 1);   
-        } else {
-            this.pitchPage = this.pitchPage - 1;
-        }
-        this.labelSpan.innerHTML = `Note ${this.pitchPage + 1}`;
-        document.getElementById(`pitch-span-${this.pitchPage}`).style.display = "";
-        document.getElementById(`start-span-${this.pitchPage}`).style.display = "";
-        document.getElementById(`end-span-${this.pitchPage}`).style.display = "";
-    }
-
-
-    hideElements(){
-        for(let i = 0; i < this.inputAmount; i++){
-            document.getElementById(`pitch-span-${i}`).style.display = "none"
-            document.getElementById(`start-span-${i}`).style.display = "none";
-            document.getElementById(`end-span-${i}`).style.display = "none";
-        }
-    }
-
-    clickPreset(){
-        if(this.currPreset === 'random'){
-            this.randomBaseSeq();
-        } else {
-            this.setPreset
-        }
-    }
-
     weightedFlip(prob){
         return (Math.random() <= prob);
     }
@@ -704,7 +524,6 @@ class MelodyGen{
         let temp, tempStart, tempEnd;
         let newIndex;
         let currentIndex = beg.length;
-    
         const begin_variation = Number.isNaN((+(this.head_variation/100).toFixed(2))) ? 0 : (+(this.head_variation/100).toFixed(2));
         for(let i = 0; i < beg.length; i++){
             if(this.weightedFlip(begin_variation)){
@@ -768,65 +587,161 @@ class MelodyGen{
             middle[newIndex].quantizedEndStep = tempEnd;
             middle[newIndex] = temp;
         }
-
         return [...beg,...middle,...end];
 
     }
 
-    setPreset(){
-        let pitchInput;
-        let lengthStartInput;
-        let lengthEndInput;
-        let pitch;
-        let startTime = 0;
-        let endTime = 0;
-        const loopLength = this.inputAmount > this.presetValues[this.currPreset].length ? this.presetValues[this.currPreset].length : this.inputAmount;
-        for(let i = 0; i < loopLength; i++){
+    uploadMidi(){
+        const midiFile = this.uploadInput.files[0];
+        mm.blobToNoteSequence(midiFile).then((sample) => {
+            const option = document.createElement("option");
+            const name = midiFile.name.split('.')[0];
+            option.setAttribute("value", name);
+            option.text = name;
+            this.presetInput.appendChild(option);
+            sample.timeSignatures[0].time = 0;
+            sample.timeSignatures = [sample.timeSignatures[0]];
+            sample.tempos[0].time = 0;
+            sample.tempos = [sample.tempos[0]];
+            this.uploadedFiles[name] = sample;
+        })
+    }
 
-            pitchInput = document.getElementById(`pitch-input-${i}`);
-            pitchInput.value = this.presetValues[this.currPreset][i].pitch;
-            pitch = pitchInput.value;
-            this.form.notes[i] = {...this.form.notes[i], pitch};
+    setPreset(shouldPlay){
+        if(this.currPreset === 'Twinkle Twinkle'){
+            this.midi = './libs/melodygen-presets/twinkle_twinkle.mid'
+        };
 
+        if(this.currPreset === 'Satisfaction'){
+            this.midi = './libs/melodygen-presets/Rolling_stones__satisfaction.mid'
+        };
 
-            lengthStartInput = document.getElementById(`length-start-input-${i}`);
-            lengthStartInput.value = this.presetValues[this.currPreset][i].startTime;
-            startTime = +lengthStartInput.value;
-            this.form.notes[i] = {...this.form.notes[i], startTime};
+        if(this.currPreset === 'Giant Steps'){
+            this.midi = './libs/melodygen-presets/JohnColtrane_GiantSteps-1_FINAL.mid'
+        };
 
-            lengthEndInput = document.getElementById(`length-end-input-${i}`);
-            lengthEndInput.value = this.presetValues[this.currPreset][i].endTime;
-            endTime = +lengthEndInput.value;
-            this.form.notes[i] = {...this.form.notes[i], endTime};
+        if(this.uploadedFiles[this.currPreset] && !this.block){
+            this.setItUp(structuredClone(this.uploadedFiles[this.currPreset]), shouldPlay);
+        } else if(this.midi && !this.block){
+            mm.urlToNoteSequence(this.midi).then((sample)=> {
+                this.setItUp(sample, shouldPlay);
+            });
+        } else if(!this.midi) {
+            alert("You Must Select A Preset Before Making Sound");
+        } else if (this.block){
+            console.log(`BLOCKING ON ${shouldPlay.toUpperCase && shouldPlay.toUpperCase() || shouldPlay}`);
+            this.actions.pop();
+            this.actions.push({function:'setPreset', arg:shouldPlay});
         }
     }
 
+    setItUp(sample, shouldPlay){
+        this.currSample = sample;
+        this.cleanNotes = this.currSample.notes;
+        this.currSample.notes = this.getCutNotes(this.currSample.notes);
+        this.currSample.notes = this.getCorrectNoteTimes(this.currSample.notes);
+        this.currSample.tempos = [this.currSample.tempos[0]];
+        this.currSample.timeSignatures = [this.currSample.timeSignatures[0]];
+        this.currSample = mm.sequences.quantizeNoteSequence(this.currSample, 32);
+        instruments.setTempo(this.currSample.tempos[0].qpm);
+        this.currSample.totalQuantizedSteps = this.getTotal(this.currSample, "totalQuantizedSteps");
+        this.currSample.totalTime = this.getTotal(this.currSample, "totalTime") + (this.getTotal(this.currSample, "totalTime")*0.2);
+        this.waitTime = this.currSample.totalTime*1000;
+        this.currNotes = this.currSample.notes;
+        this.lengthNotes =  this.currSample.notes;
+        if(shouldPlay === "test"){
+            this.test();
+        } 
+        if(shouldPlay === "playClean"){
+            this.playClean();
+        }
+    }
+
+    getCutNotes(notes){
+        const start_pos = Math.round((this.start*0.01)*notes.length);
+        const end_pos = Math.round((this.end*0.01)*notes.length);
+        return notes.slice(start_pos, end_pos);
+    }
+
+    getCorrectNoteTimes(notes){
+        const start = notes[0].startTime;
+        const new_notes = [];
+        let dist, new_note;
+        for(let note of notes){
+            new_note = structuredClone(note);
+            dist = new_note.endTime - new_note.startTime;
+            new_note.startTime = new_note.startTime - start;
+            if(new_note.startTime < 0){new_note.startTime = 0}
+            if(new_note.endTime < 0){new_note.endTime = 0}
+            new_note.endTime = new_note.startTime + dist;
+            
+            new_notes.push(new_note);
+        }
+        return new_notes;
+    }
+
+    getTotal(sample, property){
+        const notes = sample.notes;
+        const start_pos = Math.round((this.start*0.01)*notes.length);
+        const end_pos = Math.round((this.end*0.01)*notes.length);
+        const total_notes = end_pos - start_pos;
+        const percent = total_notes/notes.length;
+        return sample[property] * percent;
+    }
+
+    async test(){
+        this.block = true;
+        this.synth.setSequence(this.currSample.notes);
+        this.synth.setLoop(this.currSample.totalQuantizedSteps);
+        const timer = ms => new Promise(res => setTimeout(res, ms));
+        await timer(Math.ceil(this.waitTime));
+        console.log("DONE TESTING");
+        this.block = false;
+        this.synth.setSequence(
+            [
+                {s:0, l:0, p:0}
+            ]
+        )
+        if(this.actions.length > 0){
+            const func = this.actions.pop();
+            this[func.function](func.arg);
+        }
+
+    }
+
+    playClean(){
+        this.block = true;
+        this.currNotes = this.currSample.notes;
+        this.lengthNotes = this.currSample.notes;
+        this.setNewBaseSeq();
+        this.play();
+    }
+
     setNewBaseSeq(){
-        this.notes = this.form.notes || [];
-        this.notes = {notes: this.notes};
-        this.notes.totalTime = this.notes.notes[this.notes.notes.length - 1].endTime;
         this.temp = this.form.temp || 1.5;
-        this.steps = this.form.steps || 1;
+        this.steps = this.form.steps || 100;
         this.chords = (this.form.chords.length > 0 && this.form.chords) || ["CbmM7", "D7", "GmM7"];
-        this.repeats = this.form.repeats || 1;
+        this.repeats = this.form.repeats > 0 && this.form.repeats || 1;
         this.steps_per_quarter = this.form.steps_per_quarter || 4;
     }
 
     startSequence(){
-        if(this.currentlyPlaying){
-            this.continue = true; 
+        if(!this.currPreset){
+            alert("You Must Select A Preset Before Making Sound");
+        }
+        else if(this.block){
+            console.log("BLOCKING ON GENERATE");
+            this.actions.pop();
+            this.actions.push({function:'startSequence'});
         } else {
+            this.block = true;
+            this.setNewBaseSeq();
             this.generateNewSequences();
         } 
     }
 
     cancelSequence(){
         this.shouldCancel = true;
-        this.currentlyPlaying = false;
-    }
-
-    stopSequence(){
-        this.shouldStop = true;
     }
 
     downloadNotes(){
@@ -841,117 +756,66 @@ class MelodyGen{
         URL.revokeObjectURL(link.href);
     }
 
-    randomBaseSeq(){
-        let pitchInput;
-        let lengthStartInput;
-        let lengthEndInput;
-        let pitch;
-        let startTime = 0;
-        let endTime = 0;
-        for(let i = 0; i < this.inputAmount; i++){
-            pitchInput = document.getElementById(`pitch-input-${i}`);
-            pitchInput.value = Math.floor(Math.random()*20 + 50);
-            pitch = pitchInput.value;
-            this.form.notes[i] = {...this.form.notes[i], pitch};
 
-
-            lengthStartInput = document.getElementById(`length-start-input-${i}`);
-            lengthStartInput.value = endTime;
-            startTime = +lengthStartInput.value;
-            this.form.notes[i] = {...this.form.notes[i], startTime};
-
-            lengthEndInput = document.getElementById(`length-end-input-${i}`);
-            lengthEndInput.value = (startTime + Math.round(Math.random() * 100) / 100).toFixed(2);
-            endTime = +lengthEndInput.value;
-            this.form.notes[i] = {...this.form.notes[i], endTime};
-    
-        }
-    }
-
-    setVelocities(sample){
-        const notes = sample.notes.map((note) => {
-            note.velocity = Math.floor((Math.random()*150) + 20);
-            return note;
-        })
-        sample.notes = notes;
-        return sample;
-    }
-
-    getLoopLength(notes){
-        return notes[notes.length - 1].quantizedEndStep;
-    }
 
     generateNewSequences(){
-        const qns = mm.sequences.quantizeNoteSequence(this.notes, this.steps_per_quarter);
-        this.currentlyPlaying = true;
-        this.shouldStop = false;
-        this.continue = false;
+        this.block = true;
+        this.currSample.notes = this.currSample.notes.filter(note => note.pitch > 50 && note.pitch < 80);
+        const qns = mm.sequences.quantizeNoteSequence(this.currSample, this.steps_per_quarter);
         this.shouldCancel = false;
         const useChords = this.checkpoint === 'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv' ? this.chords : null; 
         this.magenta_rnn.continueSequence(qns, this.steps, this.temp, useChords)
         .then((sample) => {
-            const waitTime = (sample.totalQuantizedSteps/sample.quantizationInfo.stepsPerQuarter) * sample.tempos[0].qpm;
-            const timer = ms => new Promise(res => setTimeout(res, ms))
-            const repeats = this.repeats;
-            const that = this;
             this.currSample = sample;
             this.currNotes = sample.notes;
             this.lengthNotes = sample.notes;
-            async function play(){
-                let useNotes;
-                let lastLength;
-                for(let i = 0; i < repeats; i++){
-                    console.log(`STARTING ${i + 1} OF ${repeats} TOTAL LOOPS`);
-                    useNotes = that.currNotes;
-                    if(that.length !== lastLength){
-                        useNotes = that.assignLength(useNotes);
-                        that.lengthNotes = useNotes;
-                        lastLength = that.length;
-                    } else {
-                        useNotes = that.lengthNotes;
-                    }
-                    if(that.shouldStop){
-                        console.log("STOP")
-                        useNotes = [{pitch: 0}]
-                    }
-                    useNotes = that.assignVariation(useNotes);
-                    that.currSample.notes = useNotes;
-                    that.currSample = that.setVelocities(that.currSample);
-                    console.log("HELLLOOO", that.currSample.notes);
-                    that.synth.setSequence(that.currSample.notes);
-                    if(!that.shouldStop){
-                        that.melodies = [...that.melodies, ...that.currSample.notes]
-                    }
-                    that.synth.setLoop(that.getLoopLength(that.currSample.notes));
-                    const sequenceTimer = await timer(waitTime);
-                    clearTimeout(sequenceTimer);
-                    that.synth.setSequence(
-                        [
-                            {s:0, l:0, p:0}
-                        ]
-                    )
-                    const betweenSequenceTimer = await timer(that.betweenSequenceWait*1000);
-                    clearTimeout(betweenSequenceTimer);
-                    if(that.shouldCancel){
-                        break;
-                    }
-                }
-                that.currentlyPlaying = false;
-                if(that.continue){
-                    that.generateNewSequences();
-                } else {
-                    that.synth.setSequence(that.currSample.notes);
-                    that.synth.setLoop(that.getLoopLength(that.currSample.notes));
-                }
-            }
-            play();
+            this.currSample.tempos = [this.currSample.tempos[0]];
+            this.currSample.totalTime = this.currSample.totalTime ? this.currSample.totalTime : ((this.currSample.totalQuantizedSteps/this.currSample.quantizationInfo.stepsPerQuarter)/this.currSample.tempos[0].qpm)*60;
+            this.waitTime = this.currSample.totalTime*300;
+            this.play();
         })
         .catch((e) => {
             console.log(e);
-            this.currentlyPlaying = false;
-            this.continue = false;
-        })            
+        })   
+    }
 
+    async play(){
+        let useNotes;
+        let lastLength;
+        for(let i = 0; i < this.repeats; i++){
+            const timer = ms => new Promise(res => setTimeout(res, ms))
+            console.log(`STARTING ${i + 1} OF ${this.repeats} TOTAL LOOPS`);
+            useNotes = this.currNotes;
+            if(this.length !== lastLength){
+                useNotes = this.assignLength(useNotes);
+                this.lengthNotes = useNotes;
+                lastLength = this.length;
+            } else {
+                useNotes = this.lengthNotes;
+            }
+            useNotes = this.assignVariation(useNotes);
+            this.currSample.notes = useNotes;
+            this.synth.setSequence(this.currSample.notes);
+            this.synth.setLoop(this.currSample.totalQuantizedSteps);
+            this.melodies = [...this.melodies, ...this.currSample.notes]
+            await timer(Math.ceil(this.waitTime));
+            console.log("DONE PLAYING");
+            this.synth.setSequence(
+                [
+                    {s:0, l:0, p:0}
+                ]
+            )
+            await timer(this.betweenSequenceWait*1000);
+            // clearTimeout(betweenSequenceTimer);
+            if(this.shouldCancel){
+                break;
+            }
+        }
+        this.block = false;
+        if(this.actions.length > 0){
+            const func = this.actions.pop();
+            this[func.function](func.arg);
+        }
     }
 
 }
