@@ -76,8 +76,6 @@ You can [follow the guide](https://mimicproject.com/guides/learner) on the MIMIC
 
 Or you can [look at the API documentation](https://www.doc.gold.ac.uk/~lmcca002/Learner.html).
 
-### Check The Demo Video (Included In The Top Level Of This Project) For More!
-
 ### MaxiInstruments.js
 
 For a number of reasons, currently, MaxiInstruments will **performs best in Chrome**!. It does work in Firefox, although if you are pushing limits computationally, you can get some artifacts.
